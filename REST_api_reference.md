@@ -175,6 +175,14 @@ orderId
 ---|---|---|---
 orderId|true|String|订单ID号
 
+- **GET /api/v2/trade/batchCancelOrders 批量撤单**
+
+请求参数：
+
+参数名称|是否必须|类型|描述
+---|---|---|---
+orderIds|true|String|批量订单ID号，以逗号分隔不同orderId
+
 - **GET /api/v2/trade/getOrderDetail 获取订单详情**
 
 请求参数：
@@ -248,8 +256,40 @@ symbol|false|String|交易对
     "orderType": 交易类型，limit：限价,
     "orderTime": 委托时间（格式：yyyy-MM-dd HH:mm:ss）
 }]
- ```   
- 
+ ```
+ - **GET /api/v2/trade/getOpenOrdersByPage 分页获取当前委托**
+
+请求参数：
+
+参数名称|是否必须|类型|描述
+---|---|---|---
+symbol|false|String|交易对
+page|false|Number|页码，从1开始
+size|false|Number|每页条数
+
+响应数据说明：
+```
+{
+    "pageNo": 当前页码,
+    "pageSize": 每页条数,
+    "total": 总条数,
+    "list":
+        [{
+            "orderId": 订单ID号,
+            "baseAsset": 基础币种,
+            "quoteAsset": 计价币种,
+            "side": sell：卖出，buy：买入,
+            "price": 委托价格,
+            "quantity": 委托数量,
+            "filledQuantity": 已成交数量,
+            "filledAmount": 成交金额,
+            "filledAvgPrice": 成交均价,
+            "tradeCount": 成交次数,
+            "orderType": 交易类型，limit：限价,
+            "orderTime": 委托时间（格式：yyyy-MM-dd HH:mm:ss）
+        }]
+}
+ ```
 - **GET /api/v2/trade/get24hHistoryOrders 获取24h历史委托**
 
 请求参数：
@@ -275,6 +315,40 @@ symbol|false|String|交易对
     "orderTime":  委托时间（格式：yyyy-MM-dd HH:mm:ss）,
     "lastFilledTime": 最后成交时间（格式：yyyy-MM-dd HH:mm:ss）,
 }]
+```   
+- **GET /api/v2/trade/get24hHistoryOrdersByPage 分页获取24h历史委托**
+
+请求参数：
+
+参数名称|是否必须|类型|描述
+---|---|---|---
+symbol|false|String|交易对
+page|false|Number|页码，从1开始
+size|false|Number|每页条数
+
+响应数据说明：
+```
+{
+    "pageNo": 当前页码,
+    "pageSize": 每页条数,
+    "total": 总条数,
+    "list":
+        [{
+            "orderId": 订单ID号,
+            "baseAsset": 基础币种,
+            "quoteAsset": 计价币种,
+            "side": sell：卖出，buy：买入,
+            "price": 委托价格,
+            "quantity": 委托数量,
+            "filledQuantity": 已成交数量,
+            "filledAmount": 成交金额,
+            "filledAvgPrice": 成交均价,
+            "tradeCount": 交易次数,
+            "orderType": 交易类型，limit：限价,
+            "orderTime":  委托时间（格式：yyyy-MM-dd HH:mm:ss）,
+            "lastFilledTime": 最后成交时间（格式：yyyy-MM-dd HH:mm:ss）,
+        }]
+}
 ```   
 - **GET /api/v2/trade/listenerKey 获取WebSocket Listener Key**
 
